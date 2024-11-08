@@ -20,9 +20,11 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Postman tests
+      - name: Run Postman calc tests
         run: newman run test/calc_ut.postman_collection.json
+      
+      - name: Run Postman string tests
         run: newman run test/string_ut.postman_collection.json
-        run: newman run test/integration.postman_collection.json # Specify your collection file
-
-            
+      
+      - name: Run Postman integration tests
+        run: newman run test/integration.postman_collection.json
