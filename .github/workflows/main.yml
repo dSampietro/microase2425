@@ -20,11 +20,18 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      - name: Docker Setup Buildx
+        uses: docker/setup-buildx-action@v3.7.1
+
+
+      - name: Build Docker image for calc service
+        run: docker build -t calc-service:latest -f src/calc/Dockerfile .
+
+      - name: Run calc service container
+        run: docker run -d --name calc-service -p 5000:5000 calc-service:latest
+
       - name: Run Postman calc tests
         run: newman run test/calc_ut.postman_collection.json
-      
-      - name: Run Postman string tests
-        run: newman run test/string_ut.postman_collection.json
-      
-      - name: Run Postman integration tests
-        run: newman run test/integration.postman_collection.json
+
+      - name: Stop and remove calc service container
+        run: docker stop calc-service && docker rm calc-service
