@@ -25,7 +25,7 @@ jobs:
 
 
       - name: Build Docker image for calc service
-        run: docker build -t calc-service:latest -f src/calc/Dockerfile .
+        run: docker build -t calc-service:latest -f src/calc/Dockerfile src/calc
 
       - name: Run calc service container
         run: docker run -d --name calc-service -p 5000:5000 calc-service:latest
